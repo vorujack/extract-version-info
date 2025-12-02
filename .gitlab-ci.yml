@@ -1,0 +1,57 @@
+image: node:22.18.0
+
+stages:
+  - installation
+  - build
+  - type-check
+  - changeset
+
+installation:
+  stage: installation
+  cache:
+    key: $CI_COMMIT_REF_NAME
+    policy: push
+    paths:
+      - node_modules
+      - '**/node_modules'
+  script:
+    - npm ci
+
+
+type-check:
+  stage: type-check
+  cache:
+    key: $CI_COMMIT_REF_NAME
+    policy: pull
+    paths:
+      - node_modules
+      - '**/node_modules'
+      - '**/dist'
+  script:
+    - npm run type-check
+
+build:
+  stage: build
+  cache:
+    key: $CI_COMMIT_REF_NAME
+    policy: pull-push
+    paths:
+      - node_modules
+      - '**/node_modules'
+      - '**/dist'
+  script:
+    - npm run build
+
+changeset:
+  stage: changeset
+  cache:
+    key: $CI_COMMIT_REF_NAME
+    policy: pull
+    paths:
+      - node_modules
+      - '**/node_modules'
+      - '**/dist'
+  before_script:
+    - git fetch origin dev
+  script:
+    - npx changeset status --since=origin/dev

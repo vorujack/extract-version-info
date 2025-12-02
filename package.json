@@ -1,20 +1,27 @@
 {
-  "name": "extract-version-from-tag-action",
-  "version": "1.0.0",
-  "description": "This action extract the version from the latest tag and provide outputs to use in the rest of the job.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "package-action": "tsc && ncc build lib/index.js --license licenses.txt"
+  "name": "extract-version-info",
+  "private": true,
+  "type": "module",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   },
-  "keywords": [],
-  "author": "damienaicheh",
-  "license": "ISC",
-  "dependencies": {
-    "@actions/core": "^1.10.1",
-    "@actions/exec": "^1.1.1"
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "prepare": "node_modules/.bin/husky install",
+    "release": "npm run release --workspaces",
+    "type-check": "npm run type-check --workspaces",
+    "version": "npx changeset version && npm i"
   },
   "devDependencies": {
-    "@types/node": "^20.12.7"
+    "@changesets/cli": "^2.27.1",
+    "@rosen-bridge/changeset-formatter": "^1.1.0",
+    "@types/node": "^22.18.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3"
+  },
+  "engines": {
+    "node": ">=22.18.0"
   }
 }
