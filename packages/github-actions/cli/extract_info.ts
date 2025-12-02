@@ -206,12 +206,14 @@ const main = async (): Promise<void> => {
       await getNumberOfCommits();
 
       formatSemanticValuesFromTag(tag);
-      getChangelog(tag);
-
       const major = process.env[MAJOR] || '';
       const minor = process.env[MINOR] || '';
       const patch = process.env[PATCH] || '';
       const preRelease = process.env[PRE_RELEASE] || '';
+      let versionStr = `${major}.${minor}.${patch}`;
+      if (preRelease) versionStr += `-${preRelease}`
+      getChangelog(versionStr);
+
 
       updatePackageJsonVersions(major, minor, patch, preRelease);
     } else {
