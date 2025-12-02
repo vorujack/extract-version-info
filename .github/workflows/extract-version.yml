@@ -26,7 +26,7 @@ jobs:
         run: npm run build --workspace=@minotaur-ergo/github-actions
 
       - name: Extract Version Info
-        run: npm run extract-version -w @minotaur-ergo/github-actions
+        run: npx extract-version
         env:
           INPUT_VERSION_PREFIX: '## '
           INPUT_CHANGELOG_PATH: './services/test/CHANGELOG.md'
