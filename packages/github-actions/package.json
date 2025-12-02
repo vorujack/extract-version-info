@@ -7,7 +7,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "extract-version": "dist/cli/extract_info.js"
+    "extract-version": "dist/extract_info.js"
   },
   "files": [
     ".github",
@@ -16,7 +16,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "extract-version": "node dist/extract_info.js"
   },
   "dependencies": {
     "@actions/core": "^1.11.1",
