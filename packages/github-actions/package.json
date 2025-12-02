@@ -6,6 +6,9 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "extract-version": "dist/cli/extract_info.js"
+  },
   "files": [
     ".github",
     "dist/**/*"

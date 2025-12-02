@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
 import { ExecOptions } from '@actions/exec/lib/interfaces';
