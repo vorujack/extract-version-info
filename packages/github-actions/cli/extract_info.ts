@@ -211,7 +211,9 @@ const main = async (): Promise<void> => {
       const preRelease = process.env[PRE_RELEASE] || '';
       let versionStr = `${major}.${minor}.${patch}`;
       if (preRelease) versionStr += `-${preRelease}`
+      core.info("Start processing changelog" + versionStr)
       getChangelog(versionStr);
+      core.info("Completed processing changelog")
 
 
       updatePackageJsonVersions(major, minor, patch, preRelease);
