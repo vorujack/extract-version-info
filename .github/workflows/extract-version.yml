@@ -39,5 +39,5 @@ jobs:
           echo "Patch: $PATCH"
           echo "Pre-release: $PRE_RELEASE"
           echo "Number of commits: $NUMBER_OF_COMMITS"
-          echo "Changelog: $CHANGE_LOG"
+          echo "Changelog: \n$CHANGE_LOG"
 
