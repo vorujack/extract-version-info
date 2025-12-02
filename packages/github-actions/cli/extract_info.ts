@@ -58,7 +58,7 @@ const getChangelog = (version: string) => {
       changelog,
       versionPrefix,
       version,
-    ).substring(versionPrefix.length).trim();
+    ).substring(version.length).trim();
     core.info(`Changelog content: ${changelog}`);
     core.info(`version changelog content: ${versionChangelog}`);
     if (versionChangelog) {
