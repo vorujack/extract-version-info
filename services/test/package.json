@@ -1,0 +1,30 @@
+{
+  "name": "test",
+  "version": "0.0.0",
+  "description": "",
+  "repository": "",
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "src/index.ts",
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "start": "tsx ./src/index.ts",
+    "start:dev": "tsx watch ./src/index.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "config": "^3.3.7",
+    "tsx": "^4.19.4"
+  },
+  "devDependencies": {
+    "@types/config": "^0.0.41",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}

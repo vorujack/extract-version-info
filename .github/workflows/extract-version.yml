@@ -1,0 +1,43 @@
+name: Extract Version Info
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  extract-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build --workspace=@minotaur-ergo/github-actions
+
+      - name: Extract Version Info
+        run: node packages/github-actions/dist/cli/extract_info.js
+        env:
+          INPUT_VERSION_PREFIX: '## '
+          INPUT_CHANGELOG_PATH: './services/test/CHANGELOG.md'
+          INPUT_ERROR_ON_FAILURE: 'true'
+
+      - name: Display extracted info
+        run: |
+          echo "Major: $MAJOR"
+          echo "Minor: $MINOR"
+          echo "Patch: $PATCH"
+          echo "Pre-release: $PRE_RELEASE"
+          echo "Number of commits: $NUMBER_OF_COMMITS"
+          echo "Changelog: $CHANGE_LOG"
+
