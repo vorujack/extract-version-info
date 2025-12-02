@@ -39,27 +39,21 @@ const extractVersionChangelog = (
   versionPrefix: string,
   tag: string,
 ) => {
-  core.info(JSON.stringify(changeLog.split(`\n${versionPrefix}`)))
   const result = changeLog
     .split("\n" + versionPrefix)
     .filter((item) => item.startsWith(tag + '\n'));
-  core.info(result.join(''))
   return result.join('');
 };
 
 const getChangelog = (version: string) => {
   const errorOnFailure = core.getInput(ERROR_ON_FAILURE) == 'false';
   try {
-    core.info("1")
     const versionPrefix =
       core.getInput(VERSION_PREFIX_INPUT, { trimWhitespace: false }) ?? '## ';
-    core.info(versionPrefix)
     const changelogPath =
       core.getInput(CHANGELOG_PATH_INPUT, { trimWhitespace: false }) ??
       findChangelogFilePath();
-    core.info(changelogPath);
     const changelog = readFileSync(changelogPath, 'utf8');
-    core.info(changelog)
     const versionChangelog = extractVersionChangelog(
       changelog,
       versionPrefix,
@@ -200,7 +194,7 @@ const updatePackageJsonVersions = (
 };
 
 const handleError = (err: unknown): void => {
-  console.error(err);
+  core.error(`${err}`);
   core.setFailed(`Unhandled error: ${err}`);
 };
 
@@ -217,11 +211,7 @@ const main = async (): Promise<void> => {
       const preRelease = process.env[PRE_RELEASE] || '';
       let versionStr = `${major}.${minor}.${patch}`;
       if (preRelease) versionStr += `-${preRelease}`
-      core.info("Start processing changelog " + versionStr)
       getChangelog(versionStr);
-      core.info("Completed processing changelog")
-
-
       updatePackageJsonVersions(major, minor, patch, preRelease);
     } else {
       core.setFailed(`No valid tag found: ${tag}`);
