@@ -13,8 +13,7 @@
   ],
   "scripts": {
     "start": "tsx ./src/index.ts",
-    "start:dev": "tsx watch ./src/index.ts",
-    "type-check": "tsc --noEmit"
+    "start:dev": "tsx watch ./src/index.ts"
   },
   "dependencies": {
     "config": "^3.3.7",

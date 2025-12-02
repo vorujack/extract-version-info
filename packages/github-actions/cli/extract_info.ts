@@ -58,7 +58,8 @@ const getChangelog = (version: string) => {
       versionPrefix,
       version,
     );
-    core.info(`Changelog content: ${versionChangelog}`);
+    core.info(`Changelog content: ${changelog}`);
+    core.info(`version changelog content: ${versionChangelog}`);
     if (versionChangelog) {
       core.exportVariable(CHANGE_LOG, versionChangelog);
     } else if (errorOnFailure) {
