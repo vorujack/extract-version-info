@@ -78,6 +78,8 @@ const getChangelog = (version: string) => {
       } else {
         core.setFailed('Unknown error occurred');
       }
+    }else{
+      core.error(`${error}`);
     }
   }
 };
