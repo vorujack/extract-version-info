@@ -38,7 +38,6 @@ const extractVersionFromChangelog = (
   versionPrefix: string,
   tag: string,
 ) => {
-  core.info(tag)
   const result = changeLog
     .split("\n" + versionPrefix)
     .filter((item) => item.startsWith(tag + '\n'));
@@ -59,8 +58,7 @@ const getChangelog = (version: string) => {
       versionPrefix,
       version,
     ).substring(version.length).trim();
-    core.info(`Changelog content: ${changelog}`);
-    core.info(`version changelog content: ${versionChangelog}`);
+    core.info(`changelog content: ${versionChangelog}`);
     if (versionChangelog) {
       core.exportVariable(CHANGE_LOG, versionChangelog);
     } else if (errorOnFailure) {
@@ -83,7 +81,6 @@ const getLastestTag = async (): Promise<string | undefined> => {
     listeners: {
       stdout: (data: Buffer) => {
         tag = data.toString().trim();
-        core.info(tag);
         core.info(`Tag retreived: ${tag}`);
       },
       stderr: (data: Buffer) => {
