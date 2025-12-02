@@ -34,14 +34,16 @@ const findChangelogFilePath = () => {
   );
 };
 
-const extractVersionFromChangelog = (
+const extractVersionChangelog = (
   changeLog: string,
   versionPrefix: string,
   tag: string,
 ) => {
+  core.info(JSON.stringify(changeLog.split(`\n${versionPrefix}`)))
   const result = changeLog
     .split("\n" + versionPrefix)
     .filter((item) => item.startsWith(tag + '\n'));
+  core.info(result.join(''))
   return result.join('');
 };
 
@@ -54,7 +56,7 @@ const getChangelog = (version: string) => {
       core.getInput(CHANGELOG_PATH_INPUT, { trimWhitespace: false }) ??
       findChangelogFilePath();
     const changelog = readFileSync(changelogPath, 'utf8');
-    const versionChangelog = extractVersionFromChangelog(
+    const versionChangelog = extractVersionChangelog(
       changelog,
       versionPrefix,
       version,
