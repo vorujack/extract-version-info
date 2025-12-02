@@ -50,12 +50,16 @@ const extractVersionChangelog = (
 const getChangelog = (version: string) => {
   const errorOnFailure = core.getInput(ERROR_ON_FAILURE) == 'false';
   try {
+    core.info("1")
     const versionPrefix =
       core.getInput(VERSION_PREFIX_INPUT, { trimWhitespace: false }) ?? '## ';
+    core.info(versionPrefix)
     const changelogPath =
       core.getInput(CHANGELOG_PATH_INPUT, { trimWhitespace: false }) ??
       findChangelogFilePath();
+    core.info(changelogPath);
     const changelog = readFileSync(changelogPath, 'utf8');
+    core.info(changelog)
     const versionChangelog = extractVersionChangelog(
       changelog,
       versionPrefix,
@@ -211,7 +215,7 @@ const main = async (): Promise<void> => {
       const preRelease = process.env[PRE_RELEASE] || '';
       let versionStr = `${major}.${minor}.${patch}`;
       if (preRelease) versionStr += `-${preRelease}`
-      core.info("Start processing changelog" + versionStr)
+      core.info("Start processing changelog " + versionStr)
       getChangelog(versionStr);
       core.info("Completed processing changelog")
 
