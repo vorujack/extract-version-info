@@ -17,20 +17,29 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install dependencies
         run: npm ci
+
+      - uses: ./packages/github-actions
+        with:
+          command: build-app
 
       - name: Build
         run: npm run build --workspace=@minotaur-ergo/github-actions && npm i
 
       - name: Extract Version Info
-        run: npx extract-version
-        env:
-          INPUT_VERSION_PREFIX: '## '
-          INPUT_CHANGELOG_PATH: './services/test/CHANGELOG.md'
-          INPUT_ERROR_ON_FAILURE: 'true'
+        uses: ./packages/github-actions/.github/actions/extract-versions
+        with:
+          version_prefix: '## '
+          changelog_path: './services/test/CHANGELOG.md'
+          error_on_failure: 'true'
+
+      - name: Build Minotaur App
+        uses: ./packages/github-actions/.github/actions/build-app
+        with:
+          node-version: '22'
 
       - name: Display extracted info
         run: |
