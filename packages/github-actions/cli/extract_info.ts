@@ -39,6 +39,7 @@ const extractVersionFromChangelog = (
   tag: string,
 ) => {
   core.info(JSON.stringify(changeLog.split("\n" + versionPrefix)));
+  core.info(tag)
   const result = changeLog
     .split(versionPrefix)
     .filter((item) => item.startsWith(tag + '\n'));
